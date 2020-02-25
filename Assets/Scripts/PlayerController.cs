@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     void TakingDamage()
     {
-        lifeBar.GetComponent<LifeBar>().LoseLife(0.5f);
+        lifeBar.GetComponent<LifeBar>().LoseLife(0.1f);
     }
 
     void NotTakingDamage()
