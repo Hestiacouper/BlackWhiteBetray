@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 16.0f;
     
     [SerializeField] int speed;
+    [SerializeField] float timeRegen;
+    private float lastTimeDamage;
 
     private bool isGrounded;
     private bool canJump;
-
+    private bool hasBeenCalled = false;
     private float direction;
     
     // Start is called before the first frame update
@@ -124,12 +126,16 @@ public class PlayerController : MonoBehaviour
 
     void TakingDamage()
     {
+        lastTimeDamage = Time.time +timeRegen;
         lifeBar.GetComponent<LifeBar>().LoseLife(0.01f);
     }
 
     void NotTakingDamage()
     {
-        m_SpriteRenderer.color = Color.green;
+        if (Time.time > lastTimeDamage)
+        {
+            lifeBar.GetComponent<LifeBar>().LoseLife(-0.01f);
+        }
     }
 
     private void CheckSurroundings()
@@ -141,4 +147,6 @@ public class PlayerController : MonoBehaviour
     {
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
+
+    
 }
