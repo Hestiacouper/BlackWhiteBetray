@@ -9,6 +9,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="BlackOrWhiteDmg.cs" t="Include" />
+          <e p="LifeBar.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="StealUI.cs" t="Include" />
         </e>
