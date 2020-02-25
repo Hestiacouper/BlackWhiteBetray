@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,24 @@ public class PlayerController : MonoBehaviour
 {
     
     Rigidbody2D body;
-    Vector2 direction;
+    
     SpriteRenderer m_SpriteRenderer;
     private Animator animator;
     private GameObject lifeBar;
-    
+
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask whatIsGround;
+
+    [SerializeField] private float variableJumpHeightMultiplier = 0.5f;
+    [SerializeField] private float groundCheckRadius;
+    [SerializeField] private float jumpForce = 16.0f;
     
     [SerializeField] int speed;
+
+    private bool isGrounded;
+    private bool canJump;
+
+    private float direction;
     
     // Start is called before the first frame update
     void Awake()
@@ -28,15 +40,19 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     void FixedUpdate() {
+
+        CheckSurroundings();
         
-        body.velocity = direction;
+        ApplyMovements();
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        direction = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+        CheckInput();
+
+        CheckIfCanJump();
 
         if (Mathf.Abs(body.velocity.x) >= 0.1f)
         {
@@ -48,6 +64,49 @@ public class PlayerController : MonoBehaviour
         }
         
         
+    }
+
+    private void CheckInput()
+    {
+        direction = Input.GetAxis("Horizontal");
+        
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            body.velocity = new Vector2(body.velocity.x, body.velocity.y * variableJumpHeightMultiplier);
+        }
+    }
+
+    private void CheckIfCanJump()
+    {
+        if (isGrounded && body.velocity.y < 0.1f)
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+    }
+
+    private void Jump()
+    {
+        if (canJump)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+        }
+    }
+
+    private void ApplyMovements()
+    {
+        if (isGrounded)
+        {
+            body.velocity = new Vector2(speed * direction, body.velocity.y);
+        }
     }
 
 
@@ -72,6 +131,14 @@ public class PlayerController : MonoBehaviour
     {
         m_SpriteRenderer.color = Color.green;
     }
-    
-    
+
+    private void CheckSurroundings()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
 }
