@@ -18,13 +18,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float variableJumpHeightMultiplier = 0.5f;
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private float jumpForce = 16.0f;
+    [SerializeField] private float movementForceInAir;
     
     [SerializeField] int speed;
+    
     [SerializeField] float timeRegen;
+    
     private float lastTimeDamage;
 
     private bool isGrounded;
     private bool canJump;
+    private bool isFacingRight = true;
+    
     private bool hasBeenCalled = false;
     private float direction;
     
@@ -55,6 +60,8 @@ public class PlayerController : MonoBehaviour
         CheckInput();
 
         CheckIfCanJump();
+        
+        CheckMovementDirection();
 
         if (Mathf.Abs(body.velocity.x) >= 0.1f && isGrounded)
         {
@@ -86,6 +93,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CheckMovementDirection()
+    {
+        if (isFacingRight && direction < 0)
+        {
+            Flip();
+        }
+        else if (!isFacingRight && direction > 0)
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
+    {
+        Debug.Log("Flip");
+        isFacingRight = !isFacingRight;
+        transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
     private void CheckIfCanJump()
     {
         if (isGrounded && body.velocity.y < 0.1f)
@@ -111,6 +137,16 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             body.velocity = new Vector2(speed * direction, body.velocity.y);
+        }
+        else if (!isGrounded && direction != 0)
+        {
+            Vector2 forceToAdd = new Vector2(movementForceInAir * direction, 0);
+            body.AddForce(forceToAdd);
+
+            if (Mathf.Abs(body.velocity.x) > speed)
+            {
+                body.velocity = new Vector2(speed * direction, body.velocity.y);
+            }
         }
     }
 
