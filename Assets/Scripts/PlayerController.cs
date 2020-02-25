@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         direction = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
-        if (body.velocity.x > 0.1f)
+        if (Mathf.Abs(body.velocity.x) >= 0.1f)
         {
             animator.SetBool("isWalking", true);
         }
