@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D body;
     Vector2 direction;
     SpriteRenderer m_SpriteRenderer;
+    private Animator animator;
     
     
     [SerializeField] int speed;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
     void FixedUpdate() {
         
@@ -27,6 +29,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         direction = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
+
+        if (body.velocity.x > 0.1f)
+        {
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
         
         
     }
