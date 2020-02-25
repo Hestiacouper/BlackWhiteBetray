@@ -4,24 +4,28 @@ using UnityEngine;
 
 public class StealUI : MonoBehaviour
 {
+    SpriteRenderer m_spriteRenderer;
+    
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("StealUICall",0);
+        Invoke("GetBlind",0);
+        m_spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void StealUICall()
+    void GetBlind()
     {
         float randomTime = Random.Range(10, 30);
+        Debug.Log("IM CHANGING COLOR");
+        if (m_spriteRenderer.color == Color.white)
+        {
+            m_spriteRenderer.color = Color.black;
+        }
+        else if(m_spriteRenderer.color==Color.black)
+        {
+            m_spriteRenderer.color=Color.white;
+        }
  
-        // Steal UI code
- 
-        Invoke("StealUICall", randomTime);
+        Invoke("GetBlind", randomTime);
     }
 }

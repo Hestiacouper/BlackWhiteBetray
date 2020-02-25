@@ -21,9 +21,5 @@ public class BlackOrWhiteDmg : MonoBehaviour
     {
         blackDamage = !blackDamage;
         whiteDamage = !whiteDamage;
-        Debug.Log("BlackDamage:");
-        Debug.Log(blackDamage);
-        Debug.Log("WhiteDamage:");
-        Debug.Log(whiteDamage);
     }
 }
