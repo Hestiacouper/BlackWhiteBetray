@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
         CheckIfCanJump();
 
-        if (Mathf.Abs(body.velocity.x) >= 0.1f)
+        if (Mathf.Abs(body.velocity.x) >= 0.1f && isGrounded)
         {
             animator.SetBool("isWalking", true);
         }
@@ -65,6 +65,9 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
         
+        animator.SetFloat("YVelocity", body.velocity.y);
+            
+        animator.SetBool("isGrounded", isGrounded);
         
     }
 

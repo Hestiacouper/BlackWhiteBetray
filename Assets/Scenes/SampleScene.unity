@@ -283,6 +283,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   jumpForce: 16
   speed: 10
+  timeRegen: 2
 --- !u!50 &548874746
 Rigidbody2D:
   serializedVersion: 4
@@ -387,7 +388,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548874744}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 1.53, z: 0}
+  m_LocalPosition: {x: -0.88, y: 1.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 658451900}
@@ -408,7 +409,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0021238327, y: -0.3663029}
+  m_Offset: {x: -0.0021238327, y: -0.41175327}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -419,7 +420,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.86005247, y: 0.14819527}
+  m_Size: {x: 0.86005247, y: 0.23909599}
   m_EdgeRadius: 0
 --- !u!95 &548874751
 Animator:
@@ -451,7 +452,7 @@ GameObject:
   - component: {fileID: 658451900}
   - component: {fileID: 658451901}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -920,7 +921,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: d06c7d15c243d5f4db3c66890a221131, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
