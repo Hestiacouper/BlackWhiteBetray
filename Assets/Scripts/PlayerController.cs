@@ -9,9 +9,17 @@ public class PlayerController : MonoBehaviour
     Vector2 direction;
     SpriteRenderer m_SpriteRenderer;
     private Animator animator;
+    private GameObject lifeBar;
     
     
     [SerializeField] int speed;
+    
+    // Start is called before the first frame update
+    void Awake()
+    {
+        lifeBar = GameObject.FindWithTag("LifeBar");
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -57,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     void TakingDamage()
     {
-        m_SpriteRenderer.color = Color.red;
+        lifeBar.GetComponent<LifeBar>().LoseLife(0.5f);
     }
 
     void NotTakingDamage()
