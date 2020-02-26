@@ -15,7 +15,7 @@ public class StealUI : MonoBehaviour
 
     void GetBlind()
     {
-        float randomTime = Random.Range(10, 30);
+        float timer = 10;
         Debug.Log("IM CHANGING COLOR");
         if (m_spriteRenderer.color == Color.white)
         {
@@ -26,6 +26,6 @@ public class StealUI : MonoBehaviour
             m_spriteRenderer.color=Color.white;
         }
  
-        Invoke("GetBlind", randomTime);
+        Invoke("GetBlind", timer);
     }
 }
